@@ -101,15 +101,20 @@ public class HdlBinding extends AbstractBinding<HdlBindingProvider>
   {
     if (config != null) {
       gateway = (String)config.get("gateway");
-      logger.info("gateway is {}", gateway);
-
-      try {
-        server.start("0.0.0.0", gateway);
-      }
-      catch (IOException e) {
-        logger.error("Can't start HDL server: {}", e.getMessage());
-      }
     }
+
+    if (gateway == null) {
+      gateway = "255.255.255.255";
+    }
+
+    logger.info("gateway is {}", gateway);
+
+    try {
+      server.start("0.0.0.0", gateway);
+    }
+    catch (IOException e) {
+      logger.error("Can't start HDL server: {}", e.getMessage());
+}
   }
 
   public void onDimmerStateChanged(HdlDimmer dimmer, int channel, int state)
